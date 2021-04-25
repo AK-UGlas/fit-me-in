@@ -5,3 +5,6 @@ class Member():
         self.premium = premium
         self.active = active
         self.id = id
+
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
