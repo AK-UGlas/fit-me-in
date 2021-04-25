@@ -7,14 +7,11 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    
+    <section id="content">
+        {% block content %}
+        
+        {% endblock %}
+    </section>
 </body>
-<footer>
-    <nav>
-        <a href="/">Home</a> |
-        <a href="/contact">Contact us</a> |
-        <a href="/admin">Admin</a> |
-        <a href="/sitemap">Sitemap</a>
-    </nav>
-</footer>
+{% include "footer.html" %}
 </html>
