@@ -5,7 +5,7 @@ def run_sql(sql, values = None):
     results = []
     conn = None
     try:
-        conn = psycopg2.connect("dbname='zombies'")
+        conn = psycopg2.connect("dbname='gym'")
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         cur.execute(sql, values)
         conn.commit()
