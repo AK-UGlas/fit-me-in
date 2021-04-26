@@ -7,15 +7,16 @@
     border-radius: 2%;
     border-width: 1%;
     border-style: solid;
-    border-color: black;  
+    border-color: black; 
+    background-color: #f2f2f2; 
 }
 
-#join-form {
+#add-form {
     display : flex;
     flex-direction: column;
-    height: 97%;
+    height: 94%;
     margin-top: 4%;
-    background-color: #f2f2f2;
+    background-color: transparent;
 }
 
 .input-div {
@@ -26,13 +27,14 @@
     
 }
 
-.join-button {
+.submit-button {
     color: white;
     background-color: #52ab98;
     border-color: none;
-    height: 100%;
-    width: 100%;
+    height: 85%;
+    width: 85%;
     font-size: 2vw;
+    border-radius: 5px;
 }
 
 input {
@@ -46,6 +48,10 @@ input {
     border-style: solid;
     border-color: black;
     box-shadow: none;
+}
+
+label {
+    display: block;
 }
 
 .prem {
