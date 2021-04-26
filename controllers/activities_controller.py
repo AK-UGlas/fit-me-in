@@ -6,5 +6,7 @@ import repositories.activity_repo as act_repo
 
 act_bp = Blueprint("activities", __name__)
 
-#add
-@act_bp.route("activities/add")
+#new activity form
+@act_bp.route("/activities/add")
+def add_activity():
+    return render_template("activities/add.html", title="--admin-- | add new activity")

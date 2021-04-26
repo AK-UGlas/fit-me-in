@@ -8,19 +8,21 @@
 <div id="form-div">
     <form id="join-form" action="/members/join" method='POST'>
         <div class="input-div">
-            <input type="text" id="first-name" name="first-name" placeholder="First name" required>
+            <input type="text" id="first-name" name="first-name" placeholder=" First name" required>
         </div>
         <div class="input-div">
-            <input type="text" id="last-name" name="last-name" placeholder="Surname" required>
+            <input type="text" id="last-name" name="last-name" placeholder=" Surname" required>
         </div>
         <div class="input-div">
-            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="email" id="email" name="email" placeholder=" Email" required>
         </div>
         <div class="input-div">
             <label for="premium">Premium Membership</label>
-            <input type="checkbox" id="premium" name="premium" value="premium">
+            <input class="prem" type="checkbox" id="premium" name="premium" value="premium">
         </div>
-        <input type="submit" id="submit" value="Create Account">
+        <div class="input-div">
+            <input class="join-button" type="submit" id="submit" value="Create Account">
+        </div>   
     </form>
 </div>
 </section>

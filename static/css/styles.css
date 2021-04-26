@@ -3,18 +3,27 @@ header {
     width: 100%;
     background-color: white;
     height: 75px;
+    justify-content: flex-end;
 }
 
 #logo {
-    align-self: flex-end;
     width: 15%;
+    text-align: center;
+    background-color:  #52ab98;
 }
 
 #logo > h1 {
-    
+    color: white;
 }
 
 footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 2rem;
+    display : flex;
+    justify-content: center;
     width: 100%;
     background-color: #c8d8e4;
 }
@@ -23,4 +32,3 @@ body {
     margin: 0;
     background-color: #2b6777;
 }
-
