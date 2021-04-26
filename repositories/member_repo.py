@@ -15,3 +15,8 @@ def save(member):
 # update
 
 # delete
+def delete_all():
+    run_sql("DELETE FROM members")
+
+def delete(id):
+    run_sql("DELETE FROM members WHERE id = %s", [id])

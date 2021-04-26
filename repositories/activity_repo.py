@@ -44,3 +44,14 @@ def save(activity):
 
     activity.id = result[0]['id']
     return activity
+
+# read
+
+# update
+
+# delete
+def delete_all():
+    run_sql("DELETE FROM activities")
+
+def delete(id):
+    run_sql("DELETE FROM activities WHERE id = %s", [id])

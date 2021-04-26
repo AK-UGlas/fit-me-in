@@ -14,3 +14,8 @@ def save(location):
 #update
 
 #delete
+def delete_all():
+    run_sql("DELETE FROM locations")
+
+def delete(id):
+    run_sql("DELETE FROM locations WHERE id = %s", [id])
