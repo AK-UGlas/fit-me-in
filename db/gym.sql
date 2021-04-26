@@ -20,9 +20,9 @@ CREATE TABLE locations (
 CREATE TABLE activities (
     id SERIAL PRIMARY KEY,
     activity_name VARCHAR(255),
-    start_time DATE,
-    duration INT,
-    days_active TEXT[],
+    start_time TIME,
+    end_time TIME,
+    date DATE,
     location_id INT REFERENCES locations(id)
 );
 

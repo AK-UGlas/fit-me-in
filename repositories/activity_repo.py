@@ -1,7 +1,7 @@
-# from db.run_sql import run_sql
-# from datetime import date
-# from models.booking import Booking
-# from models.location import Location
+from db.run_sql import run_sql
+from datetime import datetime, time, timedelta
+from models.booking import Booking
+from models.location import Location
 
 # helper functions
 def is_leap_year(year):
@@ -30,4 +30,17 @@ def day_of_the_week(day, month, year):
              converted_months[month-1] + day) % 7
     return weekdays[today]
 
-print(day_of_the_week(30, 4, 2021))
+#create
+def save(activity):
+    sql = "INSERT INTO activities(activity_name, start_time, end_time, date, location_id) VALUES (%s, %s, %s, %s, %s) RETURNING id"
+
+    # set date and time formats as strings
+    start = activity.start.isoformat()
+    end = (activity.start + timedelta(hours=activity.duration)).isoformat()
+    date_fmt = activity.date.isoformat()
+
+    values = [activity.name, start, end, date_fmt, activity.location.id]
+    result = run_sql(sql, values)
+
+    activity.id = result[0]['id']
+    return activity
