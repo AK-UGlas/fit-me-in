@@ -12,12 +12,14 @@ def new_member():
     return render_template("members/join.html", title="become a member")
 
 # add new member and display dashboards
-@members_bp.route("/members/join")
+@members_bp.route("/members/join", methods=['POST'])
 def create_member():
     first = request.form['first-name']
     last = request.form['last-name']
     email = request.form['email']
-    premium = request.form['premium']
+    premium = False
+    if premium in request.form:
+        premium = True
     
     new_member = member_repo.save( Member(first, last, email, premium) ) 
 

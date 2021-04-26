@@ -4,9 +4,16 @@
 
 {% block content %}
 <section>
-<h2> Create A New Activity </h2>
-<div>
-<form action="/members"></form>
+<h2> Create new account </h2>
+<div id="join-form">
+    <form action="/members/join" method='POST'>
+        <input type="text" id="first-name" name="first-name" placeholder="First name" required>
+        <input type="text" id="last-name" name="last-name" placeholder="Surname" required>
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <label for="premium">Premium Membership</label>
+        <input type="checkbox" id="premium" name="premium" value="premium">
+        <input type="submit" id="submit" value="Create Account">
+    </form>
 </div>
 </section>
 {% endblock %}

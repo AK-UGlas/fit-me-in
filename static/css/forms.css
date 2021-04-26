@@ -1,0 +1,8 @@
+#join-form {
+    display : flex;
+}
+
+input[type=submit] {
+    color: white;
+    background-color: #52ab98;
+}
