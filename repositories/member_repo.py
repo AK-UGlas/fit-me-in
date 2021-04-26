@@ -1,14 +1,15 @@
+import pdb
 from db.run_sql import run_sql
 from models.member import Member
 
 # helper func
 def make_member(row):
-    return Member(row['first_name'], row['last_name'], row['premium'], row['active'], row['id'])
+    return Member(row['first_name'], row['last_name'], row['email'], row['premium'], row['active'], row['id'])
 
 # create
 def save(member):
-    sql = "INSERT INTO members (first_name, last_name, premium, active) VALUES (%s, %s, %s, %s) RETURNING id"
-    values = [member.first_name, member.last_name, member.premium, member.active]
+    sql = "INSERT INTO members (first_name, last_name, email, premium, active) VALUES (%s, %s, %s, %s, %s) RETURNING id"
+    values = [member.first_name, member.last_name, member.email, member.premium, member.active]
     result = run_sql(sql, values)
     member.id = result[0]["id"]
     return member
@@ -19,6 +20,14 @@ def select(id):
     result = run_sql("SELECT * FROM members WHERE id = %s", [id])
     
     if result is not None:
+        member = make_member(result[0])
+    return member
+
+def select_for_email(email):
+    member = None
+    result = run_sql("SELECT * FROM members WHERE email = %s", [email])
+    #pdb.set_trace()
+    if result:
         member = make_member(result[0])
     return member
 

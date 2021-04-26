@@ -3,8 +3,8 @@ from models.member import Member
 
 class TestMember(unittest.TestCase):
     def setUp(self):
-        self.premium_member = Member("Allen", "Kelly", True, False)
-        self.regular_member = Member("Dave", "Taylor", False)
+        self.premium_member = Member("Allen", "Kelly", "allen@kelly.com", True, False)
+        self.regular_member = Member("Dave", "Taylor","dt@taylor.com", False)
     
     def test_member_id_is_none(self):
         self.assertTrue(self.premium_member.id == None)
@@ -14,6 +14,9 @@ class TestMember(unittest.TestCase):
 
     def test_has_last_name(self):
         self.assertEqual("Kelly", self.premium_member.last_name)
+
+    def test_has_email(self):
+        self.assertEqual("allen@kelly.com", self.premium_member.email)
 
     def test_is_premium_member(self):
         self.assertTrue(self.premium_member.premium)

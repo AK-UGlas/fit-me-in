@@ -12,8 +12,8 @@ loc_repo.delete_all()
 member_repo.delete_all()
 
 # add some members
-allen = Member("Allen", "Kelly", True)
-dave = Member("David", "Taylor", False)
+allen = Member("Allen", "Kelly", "allen@kelly.com", True)
+dave = Member("David", "Taylor", "dt@taylor.com", False)
 
 member_repo.save(allen)
 member_repo.save(dave)

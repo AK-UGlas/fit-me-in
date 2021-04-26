@@ -7,6 +7,7 @@ CREATE TABLE members (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
+    email CITEXT UNIQUE,
     premium BOOLEAN,
     active BOOLEAN
 );
