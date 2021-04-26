@@ -13,7 +13,7 @@ def make_activity(row):
     end = isoparse(row['end_time'])
     duration = (end - start)
     date = isoparse(row['date'])
-    
+
     return Activity(start, duration, location, date, row['id'])
 
 #create
@@ -37,7 +37,7 @@ def select(id):
     result = run_sql("SELECT * FROM activities WHERE id = %s", [id])
 
     if result is not None:
-        activity = make_activity(result)
+        activity = make_activity(result[0])
     return activity
 
 # update

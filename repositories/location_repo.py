@@ -19,7 +19,7 @@ def select(id):
     result = run_sql("SELECT * FROM locations WHERE id = %s", [id])
 
     if result is not None:
-        location = make_location(result)
+        location = make_location(result[0])
     return location
 
 def select_all():

@@ -1,5 +1,20 @@
 {% extends 'base.html' %}
     
 {% block content %}
+    <section id="splash">
+        <h1 id=logo>FIT ME IN</h1>
+        <h2>Start your fitness journey today</h2>
+        <div>
+            <form action="/members/{{ member.id }}">
+                <input type="text" id="email" name="email" placeholder="Enter email address" required>
+                <input type="submit" value="Go">
+            </form>
+            <br><p>OR</p><br>
+            <form action="/members/join">
+                <input type="submit" value="Sign up">
+            </form>
+        
+        </div>
+    </section>
 
 {% endblock %}

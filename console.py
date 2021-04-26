@@ -29,7 +29,19 @@ loc_repo.save(hall1)
 loc_repo.save(hall2)
 loc_repo.save(small_room)
 
+# return all members
+all_members = member_repo.select_all()
 
+# return a specific member
+one_member = member_repo.select(allen.id)
+
+# return all locations
+all_locs = loc_repo.select_all()
+
+# return specific location
+one_loc = loc_repo.select(hall1.id)
+
+pdb.set_trace()
 
 
 
