@@ -5,6 +5,9 @@ class TestMember(unittest.TestCase):
     def setUp(self):
         self.premium_member = Member("Allen", "Kelly", True, False)
         self.regular_member = Member("Dave", "Taylor", False)
+    
+    def test_member_id_is_none(self):
+        self.assertTrue(self.premium_member.id == None)
 
     def test_has_first_name(self):
         self.assertEqual("Allen", self.premium_member.first_name)
