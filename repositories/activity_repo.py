@@ -1,34 +1,20 @@
 from db.run_sql import run_sql
 from datetime import datetime, time, timedelta
+from dateutil.parser import isoparse
 from models.booking import Booking
 from models.location import Location
 
+import repositories.location_repo as loc_repo
+
 # helper functions
-def is_leap_year(year):
-    if year % 400 == 0:
-        return True
-    elif year % 4 == 0:
-        if year % 100 == 0:
-            return False
-        else:
-            return True
-    return False
-
-def day_of_the_week(day, month, year):
-    weekdays = ["Sunday", "Monday", "Tuesday", 
-                "Wednesday", "Thursday", "Friday", 
-                "Saturday"]
-    months = [11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-    converted_months = [int((2.6 * month - 0.2) % 7) 
-                        for month in months]
-
-    if month > 3:
-        year -= 1
-
-    today = (year + int(year/4) - int(year/100) + int(year/400) + 
-             converted_months[month-1] + day) % 7
-    return weekdays[today]
+def make_activity(row):
+    location = loc_repo.select(row['location_id'])
+    start = isoparse(row['start_time'])
+    end = isoparse(row['end_time'])
+    duration = (end - start)
+    date = isoparse(row['date'])
+    
+    return Activity(start, duration, location, date, row['id'])
 
 #create
 def save(activity):
@@ -46,6 +32,13 @@ def save(activity):
     return activity
 
 # read
+def select(id):
+    activity = None
+    result = run_sql("SELECT * FROM activities WHERE id = %s", [id])
+
+    if result is not None:
+        activity = make_activity(result)
+    return activity
 
 # update
 
