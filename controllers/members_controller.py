@@ -63,5 +63,15 @@ def welcome_dashboard(id):
     # determine which classes are upcoming
     dt = datetime.today().replace(second=0, microsecond=0)
     upcoming = act_repo.select_by_date( dt.date().isoformat(), dt.time().isoformat() ) 
-    
+
     return render_template('members/dashboard.html', member=member, upcoming=upcoming)
+
+@members_bp.route("/members/<id>/book")
+def new_booking(id):
+    # create a list of dates
+    today = datetime.now()
+    week = []
+    for day in range(7):
+        week.append(today.strftime("%D/%M/%Y"))
+    pdb.set_trace()
+    return render_template("members/book.html", id=id, week=week)

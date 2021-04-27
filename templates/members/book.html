@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% include 'header.html' %}
+
+{% block content %}
+<section id="bookings">
+    <div>
+        <ul>
+            {% for day in week %}
+            <li>
+                <a href="/members/{{ id }}/book_{{ day }}">{{ day }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        {% if activities %}
+        <ul>
+            {% for activity in activities %}
+            <div>
+                {{ activity.name }}
+                {{ activity.location.room_name }}
+                <a href="/bookings/">Book lesson</a>
+            </div>
+            {% endfor %}
+        </ul>
+        {% endif %}    
+    </div>
+    
+</section>
+{% endblock %}

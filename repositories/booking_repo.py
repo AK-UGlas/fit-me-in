@@ -31,3 +31,7 @@ def select(id):
     values = [id]
     result = run_sql(sql, values)[0]
     return make_booking(result)
+
+def select_members_of_activity(id):
+    members = []
+    sql = "SELECT members.* FROM members INNER JOIN bookings ON bookings.member_id = members.id WHERE bookings.activity_id = %s"
