@@ -6,7 +6,7 @@
 <section id="bookings">
     <div>
         <hgroup>
-            <h1>Upcoming activities</h1>
+            <h2>Upcoming activities</h2>
             <h3>Select a date to view all classes</h3>
         </hgroup>
         <ul>
@@ -27,8 +27,8 @@
                 {{ activity.get_start_time() }}
                 {{ activity.name }}
                 {{ activity.location.room_name }}
-                <a href="/bookings/">Book lesson</a>
-                <a href="/activities/<id>/view">View details</a>
+                <a href="/bookings/{{ activity.id }}_{{ id }}_add">Book lesson</a>
+                <a href="/activities/{{ id }}/view">View details</a>
             </div>
             {% endfor %}
         </ul>

@@ -83,8 +83,6 @@ def new_booking(id, date):
         time = datetime.time()
     activities = act_repo.select_by_date(selected_date.isoformat(), time.isoformat())
 
-    pdb.set_trace()
-
     # create a list of date strings, starting with today
     week = []
     for day in range(7):

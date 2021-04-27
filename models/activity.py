@@ -1,11 +1,11 @@
 import datetime
 
 class Activity():
-    def __init__(self, name, start_time, location, duration=60, id=None):
+    def __init__(self, name, start_time, location, id=None):
         self.name = name
         self.start = start_time
         self.location = location
-        self.duration = duration
+        self.duration = 60
         self.id = id
 
     def get_start_time(self, iso=False):
