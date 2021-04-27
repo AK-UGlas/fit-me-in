@@ -63,7 +63,7 @@ def select(id):
     return activity
 
 def select_by_date(date, time):
-    sql = "SELECT * FROM activities WHERE date = %s AND start_time > %s"
+    sql = "SELECT * FROM activities WHERE date = %s AND start_time > %s ORDER BY start_time ASC"
     values = [date, time]
     results = run_sql(sql, values)
     

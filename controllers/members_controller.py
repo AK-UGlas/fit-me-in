@@ -76,7 +76,6 @@ def welcome_dashboard(id):
 def new_booking(id, date):
     # convert display date into datetime object
     selected_date = datetime.datetime.strptime(date, '%d-%m-%Y')
-    #pdb.set_trace()
     today = datetime.datetime.now().date()
     time = datetime.datetime.now().time()
 
