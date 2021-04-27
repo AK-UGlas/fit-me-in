@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% include 'header.html' %}
+
+{% block content %}
+<section id="bookings">
+    <div>
+        <h2>Your Bookings</h2>
+    </div>
+    <div>
+        {% if activities %}
+        <ul>
+            {% for activity in activities %}
+            <div>
+                {{ activity.get_start_time() }}
+                {{ activity.name }}
+                {{ activity.location.room_name }}
+                <a href="/activities/{{ id }}/view">View details</a>
+            </div>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <div>
+            <p>No upcoming activities</p>
+        </div>
+        {% endif %}
+        <div>
+            <form action="/members/dash_{{ id }}">
+                <input class="submit-button" type="submit" value="Back to Dashboard">
+            </form>
+        </div>    
+    </div>
+    
+</section>
+{% endblock %}

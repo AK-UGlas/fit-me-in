@@ -37,8 +37,20 @@ def select_members_of_activity(id):
     sql = "SELECT members.* FROM members INNER JOIN bookings ON bookings.member_id = members.id WHERE bookings.activity_id = %s"
     values = [id]
     results = run_sql(sql, values)
-    for result in results:
-        members.append(Member(result["name"]))
+    for row in results:
+        members.append(Member(row["name"]))
 
     return members
+
+def select_activities_of_member(id):
+    activities = []
+    sql = "SELECT activities.* FROM activities INNER JOIN bookings ON bookings.activity_id = activities.id WHERE bookings.member_id = %s ORDER BY activities.date, activities.start_time"
+    values = [id]
+    results = run_sql(sql, values)
+    for row in results:
+        activity = act_repo.make_activity(row)
+        activities.append(activity)
+
+    return activities
+    
         

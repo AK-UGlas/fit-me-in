@@ -19,4 +19,5 @@ def new_booking(act_id, member_id):
 
 @bookings_bp.route("/bookings/<id>/view")
 def view_member_bookings(id):
-    
+    activities = booking_repo.select_activities_of_member(id)
+    return render_template("bookings/view.html", id=id, activities=activities)
