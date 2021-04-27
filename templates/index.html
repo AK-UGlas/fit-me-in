@@ -2,17 +2,17 @@
     
 {% block content %}
     <section id="splash">
-        <h1 id=logo>FIT ME IN</h1>
-        <h2>Start your fitness journey today</h2>
-        <div>
-            <form action="/members/verify" method="POST">
-                <input type="email" id="email" name="email" placeholder="Enter email address" required>
-                <input type="submit" value="Go">
-            </form>
-            <br><p>OR</p><br>
-            <form action="/members/join">
-                <input type="submit" value="Sign up">
-            </form>
+        <div id="splash-div">
+            <h2 id="splash-logo">FIT ME IN</h2>
+            <h3>Start your fitness journey today</h3>
+                <form action="/members/verify" method="POST">
+                    <input type="email" id="email" name="email" placeholder="Enter email address" required>
+                    <input class="submit-button" type="submit" value="Go">
+                </form>
+                <br><p>OR</p><br>
+                <form action="/members/join">
+                    <input class="submit-button" type="submit" value="Sign up">
+                </form>
             <br>
         </div>
     </section>

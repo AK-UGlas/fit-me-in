@@ -1,8 +1,10 @@
+import pdb
 from db.run_sql import run_sql
 from datetime import datetime, time, timedelta
 from dateutil.parser import isoparse
 from models.booking import Booking
 from models.location import Location
+from models.activity import Activity
 
 import repositories.location_repo as loc_repo
 
@@ -10,7 +12,7 @@ import repositories.location_repo as loc_repo
 def make_activity(row):
     name = row['activity_name']
     location = loc_repo.select(row['location_id'])
-    start = isoparse(row['start_time'])
+    start = datetime.combine(row['date'], row['start_time'])
 
     return Activity(name, start, location, row['id'])
 
@@ -22,20 +24,22 @@ def timeslot_available(date, time, loc):
     
     # if no hits, return 
     if not results: 
-        return True
+        return False
 
+    dt_obj = datetime.combine(date, time)
     for row in results:
-        conflict_time = isoparse(row['start_time'])
-        delta = time - conflict_time
-        if abs(delta.minute) < 60:
-            return False
+        conflict_time = datetime.combine(date, row['start_time'])
+        delta = dt_obj - conflict_time
+        if delta.seconds > 82800 or delta.seconds < 3600:
+            return True
     
-    return True
+    return False
 
 #create
 def save(activity):
-    clash = timeslot_available(activity.date.date(), activity.date.time(), activity.location.id)
+    clash = timeslot_available(activity.start.date(), activity.start.time(), activity.location.id)
     if clash:
+        print("conflict detected")
         return None
     sql = "INSERT INTO activities(activity_name, start_time, date, location_id) VALUES (%s, %s, %s, %s) RETURNING id"
 
@@ -57,6 +61,13 @@ def select(id):
     if result is not None:
         activity = make_activity(result[0])
     return activity
+
+def select_by_date(date, time):
+    sql = "SELECT * FROM activities WHERE date = %s AND start_time > %s"
+    values = [date, time]
+    results = run_sql(sql, values)
+    
+    return [make_activity(row) for row in results]
 
 # update
 

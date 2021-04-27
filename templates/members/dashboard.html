@@ -3,13 +3,28 @@
 {% include 'header.html' %}
 
 {% block content %}
-<section id="content">
+<section id="all-content">
     <aside id="quicklinks">
         <div id="user-profile">
             <h1>Welcome {{member.first_name}}</h1>
             <a href="/members/{{ member.id}}/edit">Edit profile</a>
         </div>
         <div id="upcoming-classes">
+        {% if upcoming %}
+            <ul>
+                {% for activity in upcoming %}
+                <li>
+                    <div>
+                        {{ activity.name }}
+                        {{ activity.location.room_name }}
+                        <a href="/">Book lesson</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h3>No upcoming classes</h3>
+        {% endif %}
         </div>
     </aside>
     <section id="book">

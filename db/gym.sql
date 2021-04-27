@@ -23,7 +23,7 @@ CREATE TABLE activities (
     activity_name VARCHAR(255),
     start_time TIME,
     date DATE,
-    location_id INT REFERENCES locations(id)
+    location_id INT REFERENCES locations(id) ON DELETE CASCADE
 );
 
 CREATE TABLE bookings (
