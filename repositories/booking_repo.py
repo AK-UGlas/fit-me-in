@@ -38,7 +38,8 @@ def select_members_of_activity(id):
     values = [id]
     results = run_sql(sql, values)
     for row in results:
-        members.append(Member(row["name"]))
+        member = member_repo.make_member(row)
+        members.append(member)
 
     return members
 

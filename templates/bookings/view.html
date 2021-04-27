@@ -15,7 +15,7 @@
                 {{ activity.get_start_time() }}
                 {{ activity.name }}
                 {{ activity.location.room_name }}
-                <a href="/activities/{{ id }}/view">View details</a>
+                <a href="/activities/{{ id }}_viewing_{{ activity.id }}/view">View details</a>
             </div>
             {% endfor %}
         </ul>

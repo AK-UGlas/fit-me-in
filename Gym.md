@@ -5,10 +5,10 @@ A local gym has asked you to build a piece of software to help them to manage me
 #### MVP
 
 - The app should allow the gym to create and edit Members DONE
-- The app should allow the gym to create and edit Classes
-- The app should allow the gym to book members on specific classes 
-- The app should show a list of all upcoming classes
-- The app should show all members that are booked in for a particular class
+- The app should allow the gym to create and edit Classes DONE <partially>
+- The app should allow the gym to book members on specific classes DONE
+- The app should show a list of all upcoming classes DONE
+- The app should show all members that are booked in for a particular class DONE
 
 #### Inspired By
 [Glofox](https://www.glofox.com/club-solution/), [Pike13](https://www.pike13.com/pike13-scheduling-software-demo)

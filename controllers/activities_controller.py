@@ -6,22 +6,22 @@ from models.activity import Activity
 from models.location import Location
 import repositories.activity_repo as act_repo
 import repositories.location_repo as loc_repo
+import repositories.booking_repo as booking_repo
 
 act_bp = Blueprint("activities", __name__)
 
 # time formatting helper function
 def format_time():
-    # get current time and round to the coming hour using a timedelta object
+    # get current time and round to the coming hour using timedelta
     now = datetime.now().replace(microsecond=0, second=0)
     delta = timedelta(minutes = 60 - now.minute)
 
-    # arbitrary cutoff for scheduling a new activity
-    # e.g. must be within 5 min of the coming hour
-    cutoff = 5 # normally we'd place this in a separate file with constant values
+    # set arbitrary cutoff for scheduling a new activity (eg, within 5 min of the coming hour)
+    cutoff = 5 # normally place this in a separate CONSTANTS file
     
     if 60 - now.minute < cutoff:
         # add another hour
-        delta = delta + timedelta(minutes=60)
+        delta += timedelta(minutes=60)
     display_time = now + delta
 
     # activities can only be scheduled between 08:00 and 22:00
@@ -42,8 +42,7 @@ def new_activity():
     max_time = display_time + timedelta(weeks=2)
 
     return render_template("activities/add.html", title="--admin-- | add new activity", 
-                            locs=locations, displaytime=display_time.isoformat(), 
-                            maxtime=max_time.isoformat)
+                            locs=locations, displaytime=display_time.isoformat(), maxtime=max_time.isoformat)
 
 # create newly added activity
 @act_bp.route("/activities/add", methods=['POST'])
@@ -59,3 +58,10 @@ def create_activity():
         message = "Cannot add activity. Time clash detected"
 
     return redirect("/activities/add")
+
+# view specific activity
+@act_bp.route("/activities/<id>_viewing_<activity_id>/view")
+def view_activity(id, activity_id):
+    activity = act_repo.select(activity_id)
+    members = booking_repo.select_members_of_activity(activity_id)
+    return render_template("activities/view.html", id=id, activity=activity, members=members)
