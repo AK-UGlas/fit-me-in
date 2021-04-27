@@ -1,4 +1,6 @@
-from datetime import datetime
+import pdb
+import datetime
+#from datetime import datetime, timedelta
 from flask import Flask, Blueprint, redirect, render_template, request, url_for
 
 from models.member import Member
@@ -61,17 +63,33 @@ def welcome_dashboard(id):
     member = member_repo.select(id)
     # get the current time - we'll use this to
     # determine which classes are upcoming
-    dt = datetime.today().replace(second=0, microsecond=0)
-    upcoming = act_repo.select_by_date( dt.date().isoformat(), dt.time().isoformat() ) 
+    dt = datetime.datetime.today().replace(second=0, microsecond=0)
+    date = dt.date().isoformat()
+    time = dt.time().isoformat() 
+    upcoming = act_repo.select_by_date(date, time)
 
-    return render_template('members/dashboard.html', member=member, upcoming=upcoming)
+    date_str = dt.date().strftime("%d-%m-%Y") 
 
-@members_bp.route("/members/<id>/book")
-def new_booking(id):
-    # create a list of dates
-    today = datetime.now()
+    return render_template('members/dashboard.html', member=member, upcoming=upcoming, today=date_str)
+
+@members_bp.route("/members/<id>/book_<date>")
+def new_booking(id, date):
+    # convert display date into datetime object
+    selected_date = datetime.datetime.strptime(date, '%d-%m-%Y')
+    #pdb.set_trace()
+    today = datetime.datetime.now().date()
+    time = datetime.datetime.now().time()
+
+    if today != selected_date.date():
+        time = datetime.time()
+    activities = act_repo.select_by_date(selected_date.isoformat(), time.isoformat())
+
+    pdb.set_trace()
+
+    # create a list of date strings, starting with today
     week = []
     for day in range(7):
-        week.append(today.strftime("%D/%M/%Y"))
-    pdb.set_trace()
-    return render_template("members/book.html", id=id, week=week)
+        week.append(today.strftime("%d-%m-%Y"))
+        today += datetime.timedelta(days=1)
+
+    return render_template("members/book.html", id=id, week=week, activities=activities)

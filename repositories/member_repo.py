@@ -19,7 +19,7 @@ def select(id):
     member = None
     result = run_sql("SELECT * FROM members WHERE id = %s", [id])
     
-    if result is not None:
+    if result:
         member = make_member(result[0])
     return member
 

@@ -7,9 +7,10 @@
     <aside id="quicklinks">
         <div id="user-profile">
             <h1>Welcome {{member.first_name}}</h1>
-            <a href="/members/{{ member.id}}/edit">Edit profile</a>
+            <a href="/members/{{ member.id }}/edit">Edit profile</a>
         </div>
         <div id="upcoming-classes">
+        <p>Upcoming classes for {{ today }}</p>
         {% if upcoming %}
             <ul>
                 {% for activity in upcoming %}
@@ -28,10 +29,10 @@
         </div>
     </aside>
     <section id="book">
-        <a href="/members/{{ member.id }}/book">Book a class</a>
+        <a href="/members/{{ member.id }}/book_{{ today }}">Book a class</a>
     </section>
     <section id="view-bookings">
-        <a href="">View all bookings</a>
+        <a href="/bookings/view">View all bookings</a>
     </section>
 </section>
 {% endblock %}

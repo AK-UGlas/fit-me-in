@@ -7,9 +7,11 @@
     <div>
         <ul>
             {% for day in week %}
-            <li>
-                <a href="/members/{{ id }}/book_{{ day }}">{{ day }}</a>
-            </li>
+            <div>
+                <li>
+                    <a href="/members/{{ id }}/book_{{ day }}">{{ day }}</a>
+                </li>
+            </div>
             {% endfor %}
         </ul>
     </div>
@@ -20,7 +22,9 @@
             <div>
                 {{ activity.name }}
                 {{ activity.location.room_name }}
+                {{ activity.get_start_time() }}
                 <a href="/bookings/">Book lesson</a>
+                <a href="/activities/<id>/view">View details</a>
             </div>
             {% endfor %}
         </ul>

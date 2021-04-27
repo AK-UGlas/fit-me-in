@@ -35,3 +35,10 @@ def select(id):
 def select_members_of_activity(id):
     members = []
     sql = "SELECT members.* FROM members INNER JOIN bookings ON bookings.member_id = members.id WHERE bookings.activity_id = %s"
+    values = [id]
+    results = run_sql(sql, values)
+    for result in results:
+        members.append(Member(result["name"]))
+
+    return members
+        
