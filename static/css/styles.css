@@ -32,3 +32,35 @@ body {
     margin: 0;
     background-color: #2b6777;
 }
+
+#content {
+    display: grid;
+    width: 100vw;
+    height: 600px;
+    grid-template-areas: "quicklinks book view";
+    grid-template-columns: 1fr 2fr 2fr;
+}
+
+#quicklinks {
+    grid-area: quicklinks;
+}
+
+#book {
+    grid-area: book;
+    background-color: red;
+}
+
+#view-bookings {
+    grid-area: view;
+    background-color: blue;
+}
+
+#user-profile {
+    background-color: #52ab98;
+}
+
+#upcoming-classes {
+    background-color: #c8d8e4;
+}
+
+

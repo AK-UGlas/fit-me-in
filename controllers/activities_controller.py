@@ -48,10 +48,14 @@ def new_activity():
 # create newly added activity
 @act_bp.route("/activities/add", methods=['POST'])
 def create_activity():
-    #TODO check if this timeslot is already 
-    # occupied by another activity
     name = request.form['name']
     dt = dateutil.parser.isoparse(request.form['time'])
     location = loc_repo.select(request.form['location'])
-    act_repo.save(Activity(name, dt, location))
+    activity = act_repo.save(Activity(name, dt, location))
+    
+    #TODO add this functionality to link above
+    message = "Activity created successfully!"
+    if activity is None:
+        message = "Cannot add activity. Time clash detected"
+
     return redirect("/activities/add")

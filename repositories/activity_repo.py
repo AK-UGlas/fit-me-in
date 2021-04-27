@@ -14,8 +14,29 @@ def make_activity(row):
 
     return Activity(name, start, location, row['id'])
 
+# ensure chosen activity doesn't conflict with other classes
+def timeslot_available(date, time, loc):
+    sql = "SELECT * FROM activities WHERE date = %s AND location_id = %s"
+    values = [date, loc]
+    results = run_sql(sql, values)
+    
+    # if no hits, return 
+    if not results: 
+        return True
+
+    for row in results:
+        conflict_time = isoparse(row['start_time'])
+        delta = time - conflict_time
+        if abs(delta.minute) < 60:
+            return False
+    
+    return True
+
 #create
 def save(activity):
+    clash = timeslot_available(activity.date.date(), activity.date.time(), activity.location.id)
+    if clash:
+        return None
     sql = "INSERT INTO activities(activity_name, start_time, date, location_id) VALUES (%s, %s, %s, %s) RETURNING id"
 
     # set date and time formats as ISO 8601 strings
