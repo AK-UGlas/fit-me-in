@@ -43,8 +43,8 @@ input {
     width: 80%;
     height: 75%;
     font-size: 120%;
-    border-radius: 0px;
-    border-width: 2px;
+    border-radius: 2px;
+    border-width: 1px;
     border-style: solid;
     border-color: black;
     box-shadow: none;
@@ -57,4 +57,17 @@ label {
 .prem {
   width: 25%;
   height: 25%;
+}
+
+.options {
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    height: 75%;
+    font-size: 120%;
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    box-shadow: none;
 }

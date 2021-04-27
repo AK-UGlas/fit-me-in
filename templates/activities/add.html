@@ -6,7 +6,7 @@
 <section>
 <h2> Create new activity </h2>
 <div id="form-div">
-    <form id="add-form" action="/activity/join" method='POST'>
+    <form id="add-form" action="/activities/add" method='POST'>
         <div class="input-div">
             <input type="text" id="name" name="name" placeholder=" Activity name" required>
         </div>
@@ -16,15 +16,11 @@
             min="{{ displaytime }}", max="{{ maxtime }}" value="{{ displaytime }}" required>
         </div>
         <div class="input-div">
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date" required>
-        </div>
-        <div class="input-div">
-            <select class="option" id="location" name="location">
+            <select class="options" id="location" name="location"n required>
                 <option value="" disabled selected hidden>Choose room...</option>
                 
                 {% for loc in locs %}
-                    <option value="{{ loc.id }}">{{ loc.room_name }}</option>
+                    <option value="{{ loc.id }}">{{ loc.room_name }} ({{ loc.capacity }})</option>
                 {% endfor %}
             
             </select>

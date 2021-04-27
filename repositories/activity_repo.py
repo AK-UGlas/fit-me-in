@@ -8,24 +8,21 @@ import repositories.location_repo as loc_repo
 
 # helper functions
 def make_activity(row):
+    name = row['activity_name']
     location = loc_repo.select(row['location_id'])
     start = isoparse(row['start_time'])
-    end = isoparse(row['end_time'])
-    duration = (end - start)
-    date = isoparse(row['date'])
 
-    return Activity(start, duration, location, date, row['id'])
+    return Activity(name, start, location, row['id'])
 
 #create
 def save(activity):
-    sql = "INSERT INTO activities(activity_name, start_time, end_time, date, location_id) VALUES (%s, %s, %s, %s, %s) RETURNING id"
+    sql = "INSERT INTO activities(activity_name, start_time, date, location_id) VALUES (%s, %s, %s, %s) RETURNING id"
 
-    # set date and time formats as strings
-    start = activity.start.isoformat()
-    end = (activity.start + timedelta(hours=activity.duration)).isoformat()
-    date_fmt = activity.date.isoformat()
+    # set date and time formats as ISO 8601 strings
+    start = activity.start.time().isoformat()
+    date = activity.start.date().isoformat()
 
-    values = [activity.name, start, end, date_fmt, activity.location.id]
+    values = [activity.name, start, date, activity.location.id]
     result = run_sql(sql, values)
 
     activity.id = result[0]['id']

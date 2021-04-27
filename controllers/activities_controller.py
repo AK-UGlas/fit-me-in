@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from flask import Flask, Blueprint, redirect, render_template, request, url_for
+import dateutil
 
 from models.activity import Activity
 from models.location import Location
@@ -44,6 +45,13 @@ def new_activity():
                             locs=locations, displaytime=display_time.isoformat(), 
                             maxtime=max_time.isoformat)
 
+# create newly added activity
 @act_bp.route("/activities/add", methods=['POST'])
 def create_activity():
-    pass
+    #TODO check if this timeslot is already 
+    # occupied by another activity
+    name = request.form['name']
+    dt = dateutil.parser.isoparse(request.form['time'])
+    location = loc_repo.select(request.form['location'])
+    act_repo.save(Activity(name, dt, location))
+    return redirect("/activities/add")
