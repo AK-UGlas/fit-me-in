@@ -6,22 +6,22 @@
 <section>
 <h2> Create new account </h2>
 <div id="form-div">
-    <form id="join-form" action="/members/join" method='POST'>
+    <form id="join-form" action="/members/edit" method='POST'>
         <div class="input-div">
             <input type="text" id="first-name" name="first-name" value="{{ member.first_name }}" required>
         </div>
         <div class="input-div">
-            <input type="text" id="last-name" name="last-name" placeholder=" Surname" required>
+            <input type="text" id="last-name" name="last-name" placeholder=" Surname" value="{{ member.last_name }}" required>
         </div>
         <div class="input-div">
-            <input type="email" id="email" name="email" placeholder=" Email" required>
+            <input type="email" id="email" name="email" placeholder=" Email" value="{{ member.email }}"required>
         </div>
         <div class="input-div">
             <label for="premium">Premium Membership</label>
             <input class="prem" type="checkbox" id="premium" name="premium" value="premium">
         </div>
         <div class="input-div">
-            <input class="join-button" type="submit" id="submit" value="Create Account">
+            <input class="join-button" type="submit" id="submit" value="Update Details">
         </div>   
     </form>
 </div>

@@ -36,6 +36,10 @@ def select_all():
     return [make_member(row) for row in results]
 
 # update
+def update(member):
+    sql = "UPDATE members SET (first_name, last_name, email, premium, active) = (%s, %s, %s, %s, %s) WHERE id = %s"
+    values = [member.first_name, member.last_name, member.email, member.premium, member.active]
+    run_sql(sql, values)
 
 # delete
 def delete_all():
