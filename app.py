@@ -26,5 +26,9 @@ def admin():
 
     return render_template("admin.html", admin_id=admin_id, upcoming=upcoming, today=date_str)
 
+@app.route("/about")
+def about():
+    return render_template("about.html", title="FitMeIn | About us")
+
 if __name__ == '__main__':
     app.run(debug=True)

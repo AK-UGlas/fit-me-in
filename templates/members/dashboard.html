@@ -1,6 +1,4 @@
-{% extends 'base.html' %}
-
-{% include 'header.html' %}
+{% extends 'ext_base.html' %}
 
 {% block content %}
 <section id="all-content">
@@ -40,4 +38,5 @@
         <a href="/bookings/{{ member.id }}/view" class="img-link" id="bookings-link">View all bookings</a>
     </section>
 </section>
+{% include "footer.html" %}
 {% endblock %}

@@ -1,6 +1,4 @@
-{% extends 'base.html' %}
-
-{% include 'header.html' %}
+{% extends 'ext_base.html' %}
 
 {% block content %}
 <section>
@@ -18,7 +16,11 @@
         </div>
         <div class="input-div">
             <label for="premium">Premium Membership</label>
-            <input class="prem" type="checkbox" id="premium" name="premium" value="premium">
+            {% if member.premium %}
+                <input class="prem" type="checkbox" id="premium" name="premium" value="premium" checked>
+            {%else%}
+                <input class="prem" type="checkbox" id="premium" name="premium" value="premium">
+            {% endif %}
         </div>
         <div class="input-div">
             <input class="join-button" type="submit" id="submit" value="Update Details">
