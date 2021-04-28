@@ -70,7 +70,7 @@ def select(id):
     activity = None
     result = run_sql("SELECT * FROM activities WHERE id = %s", [id])
 
-    if result is not None:
+    if result:
         activity = make_activity(result[0])
     return activity
 
@@ -90,8 +90,9 @@ def update(activity):
         return False
 
     sql = "UPDATE activities SET (activity_name, start_time, date, location_id) = (%s, %s, %s, %s) WHERE id = %s"
-    values = [activity.name, activity.get_start_time(True), activity.get_date(), activity.location.id]
+    values = [activity.name, activity.get_start_time(True), activity.get_date(), activity.location.id, activity.id]
     run_sql(sql, values)
+
     return True
 
 # delete

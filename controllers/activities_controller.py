@@ -93,17 +93,16 @@ def view_all(id, date):
 
 @act_bp.route("/activities/<activity_id>/edit")
 def edit_activity(activity_id):
-    activity = act_repo.select(id)
-    return render_template('activities/edit.html', activity=activity)
+    activity = act_repo.select(activity_id)
+    locs = loc_repo.select_all()
+    return render_template('activities/edit.html', activity=activity, locs=locs)
 
 @act_bp.route("/activities/<activity_id>/edit", methods=['POST'])
 def update_activity(activity_id):
-
     name = request.form['name']
     dt = dateutil.parser.isoparse(request.form['time'])
     location = loc_repo.select(request.form['location'])
     activity = act_repo.update(Activity(name, dt, location, activity_id))
-    
     #TODO add this functionality to link above
     message = "Activity created successfully!"
     title = "activity added"
@@ -111,4 +110,4 @@ def update_activity(activity_id):
         message = "Cannot update activity. clash detected"
         title = "error adding activity"
 
-    return redirect("/activities/<activity_id>/edit")
+    return redirect(url_for('activities.view_activity', id='admin', activity_id=activity_id))

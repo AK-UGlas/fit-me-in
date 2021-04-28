@@ -6,7 +6,7 @@
 <section id="all-content">
     <aside id="quicklinks">
         <div id="user-profile">
-            <h1>Welcome {{ admin_id }}</h1>
+            <h1>Welcome {{ admin_id.upper() }}</h1>
         </div>
         <div id="upcoming-classes">
         <h3>Upcoming classes for {{ today }}</h3>
@@ -19,7 +19,7 @@
                         <div>
                             {{ activity.name }}<br>
                             {{ activity.location.room_name }}<br>
-                            <a href="/activities/{{ admin_id }}/add">Edit activity</a>
+                            <a href="/activities/{{ activity.id }}/edit">Edit activity</a>
                         </div>  
                     </div>
                 </li>

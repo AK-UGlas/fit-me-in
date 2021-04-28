@@ -10,7 +10,7 @@
         <p> Start time: {{ activity.get_start_time() }}</p><br>
         <p> Location: {{ activity.location.room_name }}</p><br>
         {% if id == "admin" %}
-            <a href="">edit</a>
+            <a href="/activities/{{ activity.id }}/edit">edit</a>
         {% endif %}
     </div>
     <div>

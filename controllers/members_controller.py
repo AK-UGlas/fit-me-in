@@ -66,6 +66,11 @@ def welcome_dashboard(id):
     # get the current time - we'll use this to determine which classes are upcoming
     dt, date_str = date_string()
     upcoming = act_repo.upcoming(dt)
+    bookings = booking_repo.select_activities_of_member(id)
+    for activity in activities:
+        for booking in bookings:
+            if activity.id == booking.id:
+                activities.remove(activity)
 
     return render_template('members/dashboard.html', member=member, upcoming=upcoming, today=date_str)
 
@@ -79,12 +84,12 @@ def new_booking(id, date):
     if today != selected_date.date():
         time = datetime.time()
     activities = act_repo.select_by_date(selected_date.isoformat(), time.isoformat())
-    if id != 'admin':
-        bookings = booking_repo.select_activities_of_member(id)
-        for activity in activities:
-            for booking in bookings:
-                if activity.id == booking.id:
-                    activities.remove(activity)
+    
+    bookings = booking_repo.select_activities_of_member(id)
+    for activity in activities:
+        for booking in bookings:
+            if activity.id == booking.id:
+                activities.remove(activity)
     # create a list of date strings, starting with today
     week = make_week(today)
 
