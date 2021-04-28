@@ -1,4 +1,4 @@
-import datetime, dateutil
+import datetime, dateutil, pdb
 from flask import Flask, Blueprint, redirect, render_template, request, url_for
 
 from models.activity import Activity
@@ -74,7 +74,7 @@ def view_activity(id, activity_id):
     members = booking_repo.select_members_of_activity(activity_id)
     return render_template("activities/view.html", id=id, activity=activity, members=members)
 
-# view all activities
+# view all activities on a given date that are NOT booked by member
 @act_bp.route("/activities/<id>/view_<date>")
 def view_all(id, date):
     # convert display date into datetime object
@@ -96,7 +96,7 @@ def edit_activity(activity_id):
     activity = act_repo.select(id)
     return render_template('activities/edit.html', activity=activity)
 
-@act_bp.route("/activities/<activity_id>/edit")
+@act_bp.route("/activities/<activity_id>/edit", methods=['POST'])
 def update_activity(activity_id):
 
     name = request.form['name']
@@ -110,4 +110,5 @@ def update_activity(activity_id):
     if activity is None:
         message = "Cannot update activity. clash detected"
         title = "error adding activity"
-        return redirect("/activities/<activity_id>/edit")
+
+    return redirect("/activities/<activity_id>/edit")

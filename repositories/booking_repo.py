@@ -53,5 +53,5 @@ def select_activities_of_member(id):
         activities.append(activity)
 
     return activities
-    
+   
         

@@ -7,6 +7,7 @@ from models.member import Member
 from utilities.utilities import date_string, make_week
 import repositories.member_repo as member_repo
 import repositories.activity_repo as act_repo
+import repositories.booking_repo as booking_repo
 
 members_bp = Blueprint("members", __name__)
 
@@ -78,7 +79,12 @@ def new_booking(id, date):
     if today != selected_date.date():
         time = datetime.time()
     activities = act_repo.select_by_date(selected_date.isoformat(), time.isoformat())
-
+    if id != 'admin':
+        bookings = booking_repo.select_activities_of_member(id)
+        for activity in activities:
+            for booking in bookings:
+                if activity.id == booking.id:
+                    activities.remove(activity)
     # create a list of date strings, starting with today
     week = make_week(today)
 
