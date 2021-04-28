@@ -6,7 +6,7 @@
 <section>
 <h2> Create new activity </h2>
 <div id="form-div">
-    <form id="add-form" action="/activities/add" method='POST'>
+    <form id="add-form" action="/activities/{{ id }}/add" method='POST'>
         <div class="input-div">
             <input type="text" id="name" name="name" placeholder=" Activity name" required>
         </div>
@@ -16,7 +16,7 @@
             min="{{ displaytime }}", max="{{ maxtime }}" value="{{ displaytime }}" required>
         </div>
         <div class="input-div">
-            <select class="options" id="location" name="location"n required>
+            <select class="options" id="location" name="location" required>
                 <option value="" disabled selected hidden>Choose room...</option>
                 
                 {% for loc in locs %}
@@ -27,9 +27,13 @@
         </div>
         <div class="input-div">
             <input class="submit-button" type="submit" id="submit" value="Create Activity">
-        </div>   
+        </div> 
+        {% if message is defined %}
+            <p style="color:Red">*{{ message }}</p>
+        {% endif %}  
     </form>
+    
 </div>
-    <p>{{ message }}</p>
+    
 </section>
 {% endblock %}

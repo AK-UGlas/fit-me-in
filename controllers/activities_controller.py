@@ -42,7 +42,7 @@ def new_activity(admin_id):
     max_time = display_time + datetime.timedelta(weeks=2)
 
     return render_template("activities/add.html", title="--admin-- | add new activity", 
-                            locs=locations, displaytime=display_time.isoformat(), maxtime=max_time.isoformat())
+                            locs=locations, displaytime=display_time.isoformat(), id=admin_id, maxtime=max_time.isoformat())
 
 # create newly added activity
 @act_bp.route("/activities/<admin_id>/add", methods=['POST'])
@@ -54,10 +54,18 @@ def create_activity(admin_id):
     
     #TODO add this functionality to link above
     message = "Activity created successfully!"
+    title = "activity added"
     if activity is None:
         message = "Cannot add activity. Time clash detected"
+        title = "error adding activity"
 
-    return redirect("/activities/<admin_id>/add", message=message)
+    locations = loc_repo.select_all()
+    display_time = format_time()
+    max_time = display_time + datetime.timedelta(weeks=2)
+
+    return render_template("activities/add.html", title=title, message=message,
+                            locs=locations, displaytime=display_time.isoformat(), 
+                            id=admin_id, maxtime=max_time.isoformat()) 
 
 # view specific activity
 @act_bp.route("/activities/<id>_viewing_<activity_id>/view")
@@ -82,3 +90,24 @@ def view_all(id, date):
     week = make_week(today)
 
     return render_template("activities/view-all.html", id=id, week=week, activities=activities)
+
+@act_bp.route("/activities/<activity_id>/edit")
+def edit_activity(activity_id):
+    activity = act_repo.select(id)
+    return render_template('activities/edit.html', activity=activity)
+
+@act_bp.route("/activities/<activity_id>/edit")
+def update_activity(activity_id):
+
+    name = request.form['name']
+    dt = dateutil.parser.isoparse(request.form['time'])
+    location = loc_repo.select(request.form['location'])
+    activity = act_repo.update(Activity(name, dt, location, activity_id))
+    
+    #TODO add this functionality to link above
+    message = "Activity created successfully!"
+    title = "activity added"
+    if activity is None:
+        message = "Cannot update activity. Time clash detected"
+        title = "error adding activity"
+        return redirect("/activities/<activity_id>/edit")

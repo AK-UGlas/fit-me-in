@@ -3,7 +3,18 @@
     background-color: #52ab98;
     border-color: none;
     height: 50px;
-    width: 150px;
-    font-size: 2vw;
+    width: 200px;
+    font-size: 1.5vw;
     border-radius: 5px;
+}
+
+#splash-submit {
+    border-radius: 2px;
+    width: 250px;
+}
+
+#email {
+    width: 244px;
+    margin: 0;
+    margin-left: 50px;
 }

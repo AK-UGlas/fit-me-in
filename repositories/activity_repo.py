@@ -22,7 +22,11 @@ def upcoming(date_obj):
     return select_by_date(date, time)
 
 # ensure chosen activity doesn't conflict with other classes
-def timeslot_available(date, time, loc):
+def timeslot_available(activity):
+    date = activity.get_date()
+    time = activity.get_start_time(True)
+    loc = activity.location.id
+    
     sql = "SELECT * FROM activities WHERE date = %s AND location_id = %s"
     values = [date, loc]
     results = run_sql(sql, values)
@@ -33,6 +37,9 @@ def timeslot_available(date, time, loc):
 
     dt_obj = datetime.combine(date, time)
     for row in results:
+        # ignore activity with same id (when updating)
+        if activity.id == row['id']:
+            continue
         conflict_time = datetime.combine(date, row['start_time'])
         delta = dt_obj - conflict_time
         if delta.seconds > 82800 or delta.seconds < 3600:
@@ -42,7 +49,7 @@ def timeslot_available(date, time, loc):
 
 #create
 def save(activity):
-    clash = timeslot_available(activity.start.date(), activity.start.time(), activity.location.id)
+    clash = timeslot_available(activity)
     if clash:
         print("conflict detected")
         return None
@@ -75,6 +82,17 @@ def select_by_date(date, time):
     return [make_activity(row) for row in results]
 
 # update
+def update(activity):
+    # check the update won't conflict with existing activities
+    clash = timeslot_available(activity)
+    if clash:
+        print("conflict detected")
+        return False
+
+    sql = "UPDATE activities SET (activity_name, start_time, date, location_id) = (%s, %s, %s, %s) WHERE id = %s"
+    values = [activity.name, activity.get_start_time(True), activity.get_date(), activity.location.id]
+    run_sql(sql, values)
+    return True
 
 # delete
 def delete_all():

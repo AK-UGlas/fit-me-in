@@ -3,15 +3,15 @@
 {% block content %}
     <section id="splash">
         <div id="splash-div">
-            <h2 id="splash-logo">FIT ME IN</h2>
+            <h2 id="splash-logo"> <i>FitMeIn</i> </h2>
             <h3>Start your fitness journey today</h3>
-                <form action="/members/verify" method="POST">
+                <form id="splash-form" action="/members/verify" method="POST">
                     <input type="email" id="email" name="email" placeholder="Enter email address" required>
-                    <input class="submit-button" type="submit" value="Go">
-                </form>
-                <br><p>OR</p><br>
+                    <input id="splash-submit" class="submit-button" type="submit" value="Go">
+                </form><br>
+                <h4>OR</h4>
                 <form action="/members/join">
-                    <input class="submit-button" type="submit" value="Sign up">
+                    <input id="splash-submit" class="submit-button" type="submit" value="Sign up">
                 </form>
             <br>
         </div>
