@@ -23,8 +23,8 @@ def upcoming(date_obj):
 
 # ensure chosen activity doesn't conflict with other classes
 def timeslot_available(activity):
-    date = activity.get_date()
-    time = activity.get_start_time(True)
+    date = activity.start.date()
+    time = activity.start.time()
     loc = activity.location.id
     
     sql = "SELECT * FROM activities WHERE date = %s AND location_id = %s"
