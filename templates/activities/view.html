@@ -7,6 +7,7 @@
     </div>   
     <div>
         <h3>{{ activity.name }}</h3>
+        <p> Date: {{ activity.get_date() }}</p>
         <p> Start time: {{ activity.get_start_time() }}</p><br>
         <p> Location: {{ activity.location.room_name }}</p><br>
         {% if id == "admin" %}

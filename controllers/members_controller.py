@@ -44,8 +44,6 @@ def update_member(id):
     # create member object from form info
     member = generate_member(request.form)
     member.id = id
-    if active not in request.form:
-        member.active = False
     return render_template('members/dashboard.html', member=member)
     
 
@@ -67,10 +65,10 @@ def welcome_dashboard(id):
     dt, date_str = date_string()
     upcoming = act_repo.upcoming(dt)
     bookings = booking_repo.select_activities_of_member(id)
-    for activity in activities:
+    for activity in upcoming:
         for booking in bookings:
             if activity.id == booking.id:
-                activities.remove(activity)
+                upcoming.remove(activity)
 
     return render_template('members/dashboard.html', member=member, upcoming=upcoming, today=date_str)
 
