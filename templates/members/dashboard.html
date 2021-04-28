@@ -4,11 +4,13 @@
 <section id="all-content">
     <aside id="quicklinks">
         <div id="user-profile">
-            <h1>Welcome {{member.first_name}}</h1>
-            <a href="/members/{{ member.id }}/edit">Edit profile</a>
+            <h1>Welcome {{member.first_name.upper()}}</h1>
+            <div id="user-img">
+                <a href="/members/{{ member.id }}/edit">Edit profile</a>
+            </div>
         </div>
         <div id="upcoming-classes">
-        <p>Upcoming classes for {{ today }}</p>
+        <h3>Upcoming classes for {{ today }}</h3>
         {% if upcoming %}
             <ul>
                 {% for activity in upcoming %}

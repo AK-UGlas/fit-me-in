@@ -2,11 +2,11 @@
 
 {% block content %}
 <section id="bookings">
-    <div>
         <hgroup>
             <h2>Upcoming activities</h2>
             <h3>Select a date to view all classes</h3>
         </hgroup>
+    <div>
         <ul>
             {% for day in week %}
             <div>
@@ -17,6 +17,7 @@
             {% endfor %}
         </ul>
     </div>
+        
     <div>
         {% if activities %}
         <ul>
