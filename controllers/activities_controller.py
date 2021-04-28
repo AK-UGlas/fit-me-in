@@ -34,8 +34,8 @@ def format_time():
     return display_time
 
 #new activity form
-@act_bp.route("/activities/add")
-def new_activity():
+@act_bp.route("/activities/<admin_id>/add")
+def new_activity(admin_id):
     # get the locations the gym has to load into form
     locations = loc_repo.select_all()
     display_time = format_time()
@@ -45,8 +45,8 @@ def new_activity():
                             locs=locations, displaytime=display_time.isoformat(), maxtime=max_time.isoformat)
 
 # create newly added activity
-@act_bp.route("/activities/add", methods=['POST'])
-def create_activity():
+@act_bp.route("/activities/<admin_id>/add", methods=['POST'])
+def create_activity(admin_id):
     name = request.form['name']
     dt = dateutil.parser.isoparse(request.form['time'])
     location = loc_repo.select(request.form['location'])
@@ -57,7 +57,7 @@ def create_activity():
     if activity is None:
         message = "Cannot add activity. Time clash detected"
 
-    return redirect("/activities/add")
+    return redirect("/activities/<admin_id>/add", message=message)
 
 # view specific activity
 @act_bp.route("/activities/<id>_viewing_<activity_id>/view")
@@ -65,3 +65,8 @@ def view_activity(id, activity_id):
     activity = act_repo.select(activity_id)
     members = booking_repo.select_members_of_activity(activity_id)
     return render_template("activities/view.html", id=id, activity=activity, members=members)
+
+# view all activities
+@act_bp.route("/activities/<admin_id>/view")
+def view_all(admin_id):
+    pass

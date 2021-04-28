@@ -4,6 +4,7 @@ import datetime
 from flask import Flask, Blueprint, redirect, render_template, request, url_for
 
 from models.member import Member
+from utilities.utilities import date_string
 import repositories.member_repo as member_repo
 import repositories.activity_repo as act_repo
 
@@ -61,14 +62,9 @@ def check_member_email():
 @members_bp.route("/members/dash_<id>")
 def welcome_dashboard(id):
     member = member_repo.select(id)
-    # get the current time - we'll use this to
-    # determine which classes are upcoming
-    dt = datetime.datetime.today().replace(second=0, microsecond=0)
-    date = dt.date().isoformat()
-    time = dt.time().isoformat() 
-    upcoming = act_repo.select_by_date(date, time)
-
-    date_str = dt.date().strftime("%d-%m-%Y") 
+    # get the current time - we'll use this to determine which classes are upcoming
+    dt, date_str = date_string()
+    upcoming = act_repo.upcoming(dt)
 
     return render_template('members/dashboard.html', member=member, upcoming=upcoming, today=date_str)
 
@@ -90,3 +86,4 @@ def new_booking(id, date):
         today += datetime.timedelta(days=1)
 
     return render_template("members/book.html", id=id, week=week, activities=activities)
+

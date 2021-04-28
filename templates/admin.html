@@ -6,8 +6,7 @@
 <section id="all-content">
     <aside id="quicklinks">
         <div id="user-profile">
-            <h1>Welcome {{member.first_name}}</h1>
-            <a href="/members/{{ member.id }}/edit">Edit profile</a>
+            <h1>Welcome {{ admin_id }}</h1>
         </div>
         <div id="upcoming-classes">
         <p>Upcoming classes for {{ today }}</p>
@@ -20,8 +19,8 @@
                         <div>
                             {{ activity.name }}<br>
                             {{ activity.location.room_name }}<br>
-                            <a href="/bookings/{{ activity.id }}_{{ member.id }}_add">Book lesson</a>
-                        </div>
+                            <a href="/activities/{{ admin_id }}/add">Edit activity</a>
+                        </div>  
                     </div>
                 </li>
                 {% endfor %}
@@ -31,11 +30,11 @@
         {% endif %}
         </div>
     </aside>
-    <section id="book">
-        <a href="/members/{{ member.id }}/book_{{ today }}">Book a class</a>
+    <section id="add-activity">
+        <a href="/activities/{{ admin_id }}/add">Add new activity</a>
     </section>
-    <section id="view-bookings">
-        <a href="/bookings/{{ member.id }}/view">View all bookings</a>
+    <section id="view-activity">
+        <a href="/activities/{{ admin_id }}/view">View all activities</a>
     </section>
 </section>
 {% endblock %}

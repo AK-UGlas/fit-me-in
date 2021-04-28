@@ -16,6 +16,11 @@ def make_activity(row):
 
     return Activity(name, start, location, row['id'])
 
+def upcoming(date_obj):
+    date = date_obj.date().isoformat()
+    time = date_obj.time().isoformat() 
+    return select_by_date(date, time)
+
 # ensure chosen activity doesn't conflict with other classes
 def timeslot_available(date, time, loc):
     sql = "SELECT * FROM activities WHERE date = %s AND location_id = %s"

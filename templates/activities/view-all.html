@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% include 'header.html' %}
+
+{% block content %}
+<section id="bookings">
+    <div>
+        <hgroup>
+            <h2>Upcoming activities</h2>
+            <h3>Select a date to view all classes</h3>
+        </hgroup>
+        <ul>
+            {% for day in week %}
+            <div>
+                <li>
+                    <a href="/members/{{ id }}/book_{{ day }}">{{ day }}</a>
+                </li>
+            </div>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        {% if activities %}
+        <ul>
+            {% for activity in activities %}
+            <div>
+                {{ activity.get_start_time() }}
+                {{ activity.name }}
+                {{ activity.location.room_name }}
+                <a href="/activities/{{ id }}_viewing_{{ activity.id }}/view">View details</a>
+            </div>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <div>
+            <p>No upcoming activities</p>
+        </div>
+        {% endif %}
+        <div>
+            <form action="/admin-dash">
+                <input class="submit-button" type="submit" value="Back to Dashboard">
+            </form>
+        </div>    
+    </div>
+    
+</section>
+{% endblock %}
