@@ -8,18 +8,21 @@
 <div id="form-div">
     <form id="add-form" action="/activities/{{ id }}/" method='POST'>
         <div class="input-div">
-            <input type="text" id="name" name="name" placeholder=" Activity name" required>
+            <input type="text" id="name" name="name" placeholder=" Activity name" value="{{ activity.name }}" required>
         </div>
         <div class="input-div">
             <label for="time">Activity time:</label>
             <input type="datetime-local" id="time" name="time" 
-            min="{{ displaytime }}", max="{{ maxtime }}" value="{{ displaytime }}" required>
+            min="{{ displaytime }}", max="{{ maxtime }}" value="{{ activity.start.isoformat() }}" required>
         </div>
         <div class="input-div">
             <select class="options" id="location" name="location" required>
-                <option value="" disabled selected hidden>Choose room...</option>
                 {% for loc in locs %}
-                    <option value="{{ loc.id }}">{{ loc.room_name }} ({{ loc.capacity }})</option>
+                    {% if loc.id == activity.location.id %}
+                        <option value="{{ loc.id }}" selected>{{ loc.room_name }} ({{ loc.capacity }})</option>
+                    {% else %}
+                        <option value="{{ loc.id }}">{{ loc.room_name }} ({{ loc.capacity }})</option>
+                    {% endif %}
                 {% endfor %}
             </select>
         </div>

@@ -31,11 +31,13 @@
         {% endif %}
         </div>
     </aside>
-    <section id="book">
-        <a href="/members/{{ member.id }}/book_{{ today }}">Book a class</a>
+    <section class="img-div" id="book">
+        <h1>Book a class</h1>
+        <a href="/members/{{ member.id }}/book_{{ today }}" class="img-link" id="activity-link">Book a class</a>
     </section>
-    <section id="view-bookings">
-        <a href="/bookings/{{ member.id }}/view">View all bookings</a>
+    <section class="img-div" id="view-bookings">
+        <h1>View all bookings</h1>
+        <a href="/bookings/{{ member.id }}/view" class="img-link" id="bookings-link">View all bookings</a>
     </section>
 </section>
 {% endblock %}

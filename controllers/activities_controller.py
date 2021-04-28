@@ -108,6 +108,6 @@ def update_activity(activity_id):
     message = "Activity created successfully!"
     title = "activity added"
     if activity is None:
-        message = "Cannot update activity. Time clash detected"
+        message = "Cannot update activity. clash detected"
         title = "error adding activity"
         return redirect("/activities/<activity_id>/edit")
