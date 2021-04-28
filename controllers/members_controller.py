@@ -4,7 +4,7 @@ import datetime
 from flask import Flask, Blueprint, redirect, render_template, request, url_for
 
 from models.member import Member
-from utilities.utilities import date_string
+from utilities.utilities import date_string, make_week
 import repositories.member_repo as member_repo
 import repositories.activity_repo as act_repo
 
@@ -80,10 +80,7 @@ def new_booking(id, date):
     activities = act_repo.select_by_date(selected_date.isoformat(), time.isoformat())
 
     # create a list of date strings, starting with today
-    week = []
-    for day in range(7):
-        week.append(today.strftime("%d-%m-%Y"))
-        today += datetime.timedelta(days=1)
+    week = make_week(today)
 
     return render_template("members/book.html", id=id, week=week, activities=activities)
 

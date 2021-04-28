@@ -1,9 +1,9 @@
-from datetime import datetime, timedelta
+import datetime, dateutil
 from flask import Flask, Blueprint, redirect, render_template, request, url_for
-import dateutil
 
 from models.activity import Activity
 from models.location import Location
+from utilities.utilities import make_week
 import repositories.activity_repo as act_repo
 import repositories.location_repo as loc_repo
 import repositories.booking_repo as booking_repo
@@ -13,23 +13,23 @@ act_bp = Blueprint("activities", __name__)
 # time formatting helper function
 def format_time():
     # get current time and round to the coming hour using timedelta
-    now = datetime.now().replace(microsecond=0, second=0)
-    delta = timedelta(minutes = 60 - now.minute)
+    now = datetime.datetime.now().replace(microsecond=0, second=0)
+    delta = datetime.timedelta(minutes = 60 - now.minute)
 
     # set arbitrary cutoff for scheduling a new activity (eg, within 5 min of the coming hour)
     cutoff = 5 # normally place this in a separate CONSTANTS file
     
     if 60 - now.minute < cutoff:
         # add another hour
-        delta += timedelta(minutes=60)
+        delta += datetime.timedelta(minutes=60)
     display_time = now + delta
 
     # activities can only be scheduled between 08:00 and 22:00
     target_hour = display_time.hour
     if target_hour > 21:
-        display_time = display_time + timedelta(minutes=(24 - target_hour + 8) * 60)
+        display_time = display_time + datetime.timedelta(minutes=(24 - target_hour + 8) * 60)
     elif 0 <= target_hour < 8:
-        display_time = display_time + timedelta(minutes=(8 - target_hour) * 60)
+        display_time = display_time + datetime.timedelta(minutes=(8 - target_hour) * 60)
 
     return display_time
 
@@ -39,10 +39,10 @@ def new_activity(admin_id):
     # get the locations the gym has to load into form
     locations = loc_repo.select_all()
     display_time = format_time()
-    max_time = display_time + timedelta(weeks=2)
+    max_time = display_time + datetime.timedelta(weeks=2)
 
     return render_template("activities/add.html", title="--admin-- | add new activity", 
-                            locs=locations, displaytime=display_time.isoformat(), maxtime=max_time.isoformat)
+                            locs=locations, displaytime=display_time.isoformat(), maxtime=max_time.isoformat())
 
 # create newly added activity
 @act_bp.route("/activities/<admin_id>/add", methods=['POST'])
@@ -67,6 +67,18 @@ def view_activity(id, activity_id):
     return render_template("activities/view.html", id=id, activity=activity, members=members)
 
 # view all activities
-@act_bp.route("/activities/<admin_id>/view")
-def view_all(admin_id):
-    pass
+@act_bp.route("/activities/<id>/view_<date>")
+def view_all(id, date):
+    # convert display date into datetime object
+    selected_date = datetime.datetime.strptime(date, '%d-%m-%Y')
+    today = datetime.datetime.now().date()
+    time = datetime.datetime.now().time()
+
+    if today != selected_date.date():
+        time = datetime.time()
+    activities = act_repo.select_by_date(selected_date.isoformat(), time.isoformat())
+
+    # create a list of date strings, starting with today
+    week = make_week(today)
+
+    return render_template("activities/view-all.html", id=id, week=week, activities=activities)
