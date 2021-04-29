@@ -26,7 +26,6 @@
                 {{ activity.get_start_time() }}
                 {{ activity.name }}
                 {{ activity.location.room_name }}
-                <a href="/bookings/{{ activity.id }}_{{ id }}_add">Book lesson</a>
                 <a href="/activities/{{ id }}_viewing_{{ activity.id }}/view">View details</a>
             </div>
             {% endfor %}

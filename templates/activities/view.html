@@ -13,6 +13,9 @@
         {% if id == "admin" %}
             <a href="/activities/{{ activity.id }}/edit">edit</a>
         {% endif %}
+        {% if booked is defined and not booked %}
+            <a href="/bookings/{{ activity.id }}_{{ id }}_add">Sign up for this class</a>
+        {% endif %}
     </div>
     <div>
         <h3>Signed up</h3>
@@ -25,9 +28,6 @@
             </ul>
         {% else %}
             <p>No sign-ups yet</p>
-            {% if id != "admin" %}
-                <a href="/bookings/{{ activity.id }}_{{ id }}_add"><i>be the first to sign up</i></a>
-            {% endif %}
         {% endif %}
     </div>
     {% if id != "admin" %}

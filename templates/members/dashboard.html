@@ -19,8 +19,7 @@
                         {{ activity.get_start_time() }}
                         <div>
                             {{ activity.name }}<br>
-                            {{ activity.location.room_name }}<br>
-                            <a href="/bookings/{{ activity.id }}_{{ member.id }}_add">Book lesson</a>
+                            <a href="/activities/{{member.id}}_viewing_{{activity.id}}/view">view class</a>
                         </div>
                     </div>
                 </li>

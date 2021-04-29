@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask import Flask, Blueprint, redirect, render_template, request, url_for
-
+import pdb
 from models.booking import Booking
 from models.activity import Activity
 from models.member import Member
@@ -11,11 +11,11 @@ import repositories.booking_repo as booking_repo
 bookings_bp = Blueprint("bookings", __name__)
 
 @bookings_bp.route("/bookings/<act_id>_<member_id>_add")
-def new_booking(act_id, member_id):
+def make_booking(act_id, member_id):
     member = member_repo.select(member_id)
     activity = act_repo.select(act_id)
     booking_repo.save(Booking(member, activity))
-    return redirect(url_for('members.welcome_dashboard', id=member_id))
+    return redirect(url_for('activities.view_activity', id=member_id, activity_id=act_id))
 
 @bookings_bp.route("/bookings/<id>/view")
 def view_member_bookings(id):

@@ -72,7 +72,16 @@ def create_activity(admin_id):
 def view_activity(id, activity_id):
     activity = act_repo.select(activity_id)
     members = booking_repo.select_members_of_activity(activity_id)
-    return render_template("activities/view.html", id=id, activity=activity, members=members)
+    booked = False
+    if id=='admin':
+        booked = True
+    else:
+        for member in members:
+            if int(id) == member.id:
+                booked = True
+                break
+
+    return render_template("activities/view.html", id=id, activity=activity, members=members, booked=booked)
 
 # view all activities on a given date that are NOT booked by member
 @act_bp.route("/activities/<id>/view_<date>")

@@ -26,9 +26,6 @@
                 {{ activity.name }}
                 {{ activity.location.room_name }}
                 <a href="/activities/{{ id }}_viewing_{{ activity.id }}/view">View details</a>
-                {% if id == 'admin' %}
-                <a href="/activities/{{ activity.id }}/edit">Edit</a>
-                {% endif %}
             </div>
             {% endfor %}
         </ul>
