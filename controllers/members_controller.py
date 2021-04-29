@@ -39,12 +39,13 @@ def edit_member(id):
     return render_template('members/edit.html', member=member)
 
 # update details and return to dashboard
-@members_bp.route("/members/<id>/update", methods=['POST'])
+@members_bp.route("/members/<id>/edit", methods=['POST'])
 def update_member(id):
     # create member object from form info
     member = generate_member(request.form)
     member.id = id
-    return render_template('members/dashboard.html', member=member)
+    member_repo.update(member)
+    return redirect(url_for('.welcome_dashboard', id=member.id))
     
 
 # verify member exists in database. if not render error page

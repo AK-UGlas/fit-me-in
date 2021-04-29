@@ -227,8 +227,13 @@ body {
 
 #bookings {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 
+}
+
+#all-acts {
+    display: flex;
+    flex-direction: row;
 }
 
 

@@ -38,7 +38,7 @@ def select_all():
 # update
 def update(member):
     sql = "UPDATE members SET (first_name, last_name, email, premium, active) = (%s, %s, %s, %s, %s) WHERE id = %s"
-    values = [member.first_name, member.last_name, member.email, member.premium, member.active]
+    values = [member.first_name, member.last_name, member.email, member.premium, member.active, member.id]
     run_sql(sql, values)
 
 # delete
