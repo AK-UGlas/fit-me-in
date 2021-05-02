@@ -97,8 +97,8 @@ def view_all(id, date):
 
     # create a list of date strings, starting with today
     week = make_week(today)
-
-    return render_template("activities/view-all.html", id=id, week=week, activities=activities)
+    selected_date = selected_date.strftime("%d-%m-%Y")
+    return render_template("activities/view-all.html", id=id, week=week, activities=activities, selected_date=selected_date)
 
 @act_bp.route("/activities/<activity_id>/edit")
 def edit_activity(activity_id):

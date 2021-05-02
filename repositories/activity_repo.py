@@ -90,7 +90,7 @@ def update(activity):
         return False
 
     sql = "UPDATE activities SET (activity_name, start_time, date, location_id) = (%s, %s, %s, %s) WHERE id = %s"
-    values = [activity.name, activity.get_start_time(True), activity.get_date(), activity.location.id, activity.id]
+    values = [activity.name, activity.get_start_time(True), activity.get_date(True), activity.location.id, activity.id]
     run_sql(sql, values)
 
     return True

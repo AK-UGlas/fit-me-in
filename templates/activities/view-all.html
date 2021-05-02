@@ -1,44 +1,55 @@
 {% extends 'ext_base.html' %}
 
 {% block content %}
-<section id="bookings">
-    <div>
-        <hgroup>
-            <h2>Upcoming activities</h2>
-            <h3>Select a date to view all classes</h3>
-        </hgroup>
+<section id="booking-content">
+    <h2>Upcoming activities</h2>
+    <div id="date-picker"> 
+        <h3>Select a date to view all classes</h3>
         <ul>
             {% for day in week %}
-            <div>
-                <li>
-                    <a href="/activities/{{ id }}/view_{{ day }}">{{ day }}</a>
-                </li>
-            </div>
+            <li>
+                {% if day != selected_date %}
+                <a href="/activities/{{ id }}/view_{{ day }}">{{ day }}</a>
+                {% else %}
+                <a href="/activities/{{ id }}/view_{{ day }}" style="color: #FF0000;">{{ day }}</a>
+                {% endif %}
+            </li>
             {% endfor %}
         </ul>
     </div>
-    <div id="all-acts">
+    <div id="all-bookings">
         {% if activities %}
-        <ul>
+            <table id="bookings">
+                <thead>
+                    <tr>
+                        <th>Start time</th>
+                        <th>Activity</th>
+                        <th>Location</th>
+                    </tr>  
+                </thead>
             {% for activity in activities %}
-            <div>
-                {{ activity.get_start_time() }}
-                {{ activity.name }}
-                {{ activity.location.room_name }}
-                <a href="/activities/{{ id }}_viewing_{{ activity.id }}/view">View details</a>
-            </div>
+            <tr>
+                <td><a href="/activities/{{ id }}_viewing_{{ activity.id }}/view">{{ activity.get_start_time() }}</a></td>
+                <td><a href="/activities/{{ id }}_viewing_{{ activity.id }}/view">{{ activity.name }}</a></td>
+                <td><a href="/activities/{{ id }}_viewing_{{ activity.id }}/view">{{ activity.location.room_name }}</a></td>
+            </tr>  
             {% endfor %}
-        </ul>
+        </table>
         {% else %}
         <div>
             <p>No upcoming activities</p>
         </div>
         {% endif %}
-        <div>
-            <form action="/admin-dash">
-                <input class="submit-button" type="submit" value="Back to Dashboard">
-            </form>
-        </div>  
+    </div>
+      
+    <div id="dash">
+        {% if id == 'admin' %}
+        <form action="/admin-dash">
+        {% else %}
+        <form action="/members/dash_{{ id }}">
+        {% endif %}
+            <input class="submit-button" type="submit" value="Back to Dashboard">
+        </form>
     </div>  
 </section>
 {% endblock %}

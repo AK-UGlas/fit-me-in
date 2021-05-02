@@ -14,5 +14,8 @@ class Activity():
             return time.isoformat()
         return time.strftime("%H:%M")
 
-    def get_date(self):
-        return self.start.date().isoformat()
+    def get_date(self, iso=False):
+        if iso:
+            return self.start.date().isoformat()
+        return self.start.strftime('%d-%m-%Y')
+        
