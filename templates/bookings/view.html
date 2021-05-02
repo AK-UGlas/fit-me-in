@@ -8,6 +8,7 @@
             <table id="bookings">
                 <thead>
                     <tr>
+                        <th>Date</th>
                         <th>Start time</th>
                         <th>Activity</th>
                         <th>Location</th>
@@ -15,6 +16,7 @@
                 </thead>
             {% for activity in activities %}
             <tr>
+                <td><a href="/activities/{{ id }}_viewing_{{ activity.id }}/view">{{ activity.get_date() }}</a></td>
                 <td><a href="/activities/{{ id }}_viewing_{{ activity.id }}/view">{{ activity.get_start_time() }}</a></td>
                 <td><a href="/activities/{{ id }}_viewing_{{ activity.id }}/view">{{ activity.name }}</a></td>
                 <td><a href="/activities/{{ id }}_viewing_{{ activity.id }}/view">{{ activity.location.room_name }}</a></td>
