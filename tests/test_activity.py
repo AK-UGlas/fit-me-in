@@ -25,6 +25,11 @@ class TestActivity(unittest.TestCase):
     
 # test methods
 
-    def test_return_date_as_iso8601_format(self):
+    def test_return_date_as_iso8601_format_string(self):
         self.assertEqual(self.now.date().isoformat(), self.yoga.get_date(iso=True))
+
+    def test_return_time_as_iso8601_format_string(self):
+        self.assertEqual(self.now.time().isoformat(), self.yoga.get_start_time(iso=True))
+
+
         
